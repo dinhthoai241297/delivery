@@ -1,27 +1,28 @@
 # Delivery Management
 
-A delivery management app, is built with `create-react-app`
+A delivery management app, is built with `create-react-app`.
+
 Data is stored on browser local storage
 
 #### Features:
 
--   [x] Create, Update, Delete, View list, View details delivery
--   [x] Change status on one record
--   [x] Change status, delete on multiple record
--   [x] Local filter display dilivery by status (Click to status header)
--   [x] Local search across all fields
+-   [x] List delivery
+-   [x] View delivery detail
+-   [x] Create, Update, Delete delivery
+-   [x] Change Delivery status
+-   [x] Change status, delete multiple delivery
+-   [x] Filter delivery by status (click on status column header)
+-   [x] Search delivery across all fields
 
-#### Live demo:
+#### Live demo: [Delivery demo](https://test.phamthoai.xyz)
 
-[delivery demo](https://test.phamthoai.xyz/delivery/list)
-
-### Installation
+## Installation
 
 ```
 npm i
 ```
 
-### Running development server
+## Running development server
 
 ```
 npm start
@@ -29,23 +30,23 @@ npm start
 
 Start a local dev server and refresh file changes on the fly without reloading the page.
 
-### Build and Running on production
+## Build and Running on production
 
 ```
 npm run build
 ```
 
-Compiles application to dist folder. Just serve this folder with `serve` or `nginx` and you are good to go.
+Compiles application to `build` folder. Just serve this folder with [https://github.com/zeit/serve](serve) or `nginx` and you are good to go.
 
-### Linting
+## Linting
+
+Linting with ESLint
 
 ```
 npm run lint
 ```
 
-Linting with ESLint
-
-### Testing
+## Testing
 
 ```
 npm test
