@@ -58,6 +58,9 @@ describe('Delivery reducer', () => {
     it('Add new delivery', () =>
         expect(DeliveryReducer(state, { type: types.ADD_DELIVERY, payload: dataAdd })).toEqual([...state, dataAdd]))
 
+    it('Delete delivery', () =>
+        expect(DeliveryReducer(state, { type: types.DELETE_DELIVERY, payload: [dataUpdate.id] })).toEqual([]))
+
     it('Update delivery', () =>
         expect(DeliveryReducer(state, { type: types.UPDATE_DELIVERY, payload: dataUpdate })).toEqual([dataUpdate]))
 
