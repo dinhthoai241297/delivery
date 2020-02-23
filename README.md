@@ -36,7 +36,7 @@ Start a local dev server and refresh file changes on the fly without reloading t
 npm run build
 ```
 
-Compiles application to `build` folder. Just serve this folder with [https://github.com/zeit/serve](serve) or `nginx` and you are good to go.
+Compiles application to `build` folder. Just serve this folder with [serve](https://github.com/zeit/serve) or `nginx` and you are good to go.
 
 ## Linting
 
