@@ -14,7 +14,7 @@ Data is stored on browser local storage
 -   [x] Filter delivery by status (click on status column header)
 -   [x] Search delivery across all fields
 
-#### Live demo: [Delivery demo](https://test.phamthoai.xyz)
+#### Live demo: [Delivery demo](https://delivery.phamthoai.xyz)
 
 ## Installation
 
