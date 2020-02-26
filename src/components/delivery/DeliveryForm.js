@@ -15,7 +15,6 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
 
     useEffect(() => {
         props.initialize({
-            status: DELIVERY_STATUS.PREPARE,
             ...delivery,
         })
     }, [])
@@ -87,18 +86,20 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
                         validate={required}
                     />
                 </div>
-                <div className="col-12 col-lg-6 mb-3">
-                    <Field
-                        disabled={!delivery}
-                        label="Status"
-                        name="status"
-                        component={Select}
-                        options={[
-                            { label: 'Prepare', value: DELIVERY_STATUS.PREPARE },
-                            { label: 'Delivered', value: DELIVERY_STATUS.DELIVERED },
-                        ]}
-                    />
-                </div>
+                {delivery && (
+                    <div className="col-12 col-lg-6 mb-3">
+                        <Field
+                            disabled={!delivery}
+                            label="Status"
+                            name="status"
+                            component={Select}
+                            options={[
+                                { label: 'Prepare', value: DELIVERY_STATUS.PREPARE },
+                                { label: 'Delivered', value: DELIVERY_STATUS.DELIVERED },
+                            ]}
+                        />
+                    </div>
+                )}
                 <div className="col-12 mb-3">
                     <Field label="Description" name="description" component={InputTextarea} type="text" />
                 </div>
