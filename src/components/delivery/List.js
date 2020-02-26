@@ -11,6 +11,8 @@ import { DELIVERY_STATUS } from 'constant'
 import qs from 'query-string'
 import ModalConfirm from 'components/elements/ModalConfirm'
 import ReactTooltip from 'react-tooltip'
+import { fromToday } from 'utils/ValidationForm'
+import { toast } from 'react-toastify'
 
 const List = ({ history, location }) => {
     const dispatch = useDispatch()
@@ -57,13 +59,35 @@ const List = ({ history, location }) => {
     }
 
     const submitChangeStatus = (list, newStatus) => {
+        if (newStatus == DELIVERY_STATUS.PREPARE) {
+            let valid = checkChangeStatusToPrepare(list)
+            if (!valid) {
+                toast.warn('Deliver date invalid for change status to prepare', {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                })
+                return false
+            }
+        }
         dispatch(changeStatus(list, newStatus))
+        return true
+    }
+
+    const checkChangeStatusToPrepare = listId => {
+        let list = deliveryList.filter(el => listId.includes(el.id))
+        for (let i = 0; i < list.length; i++) {
+            if (fromToday(list[i].deliveryDate)) {
+                return false
+            }
+        }
+        return true
     }
 
     const hanleChangeStatusMulti = (list, newStatus) => {
-        submitChangeStatus(list, newStatus)
-        let tmp = filter().map(el => el.id)
-        setSelected(selected.filter(id => tmp.includes(id)))
+        let rs = submitChangeStatus(list, newStatus)
+        if (rs) {
+            let tmp = filter().map(el => el.id)
+            setSelected(selected.filter(id => tmp.includes(id)))
+        }
     }
 
     const openConfirmDeleteOne = id => {

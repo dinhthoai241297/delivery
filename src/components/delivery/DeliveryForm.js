@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import InputText from 'components/form/InputText'
-import { required, number, positive, fromToday } from 'utils/ValidationForm'
+import { required, number, positive } from 'utils/ValidationForm'
 import InputDatepicker from 'components/form/InputDatepicker'
 import InputTextarea from 'components/form/InputTextarea'
 import Select from 'components/form/Select'
