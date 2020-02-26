@@ -82,7 +82,7 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
                         name="price"
                         component={InputText}
                         type="number"
-                        validate={[required, number]}
+                        validate={[required, number, positive]}
                     />
                 </div>
                 <div className="col-12 col-lg-6 mb-3">
