@@ -1,5 +1,4 @@
 const data = JSON.parse(localStorage.getItem('mock-data')) || { list: [] }
-console.log(data)
 
 const saveToLocalStore = () => {
     localStorage.setItem('mock-data', JSON.stringify(data))

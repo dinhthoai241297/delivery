@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import paths from 'routes/paths'
 import { formatNumber } from 'utils/index'
 import ReactTooltip from 'react-tooltip'
+import LabelStatus from 'components/elements/LabelStatus'
 
 const Iteam = ({ delivery, toggleSelect, selected, changeStatus, deleteOne }) => {
     const toggle = e => {
@@ -34,11 +35,22 @@ const Iteam = ({ delivery, toggleSelect, selected, changeStatus, deleteOne }) =>
             <td>{formatNumber(delivery.price)}</td>
             <td>{delivery.deliveryDate}</td>
             <td className="text-center">
+                <h5 className="m-0">
+                    <LabelStatus status={delivery.status} />
+                </h5>
+            </td>
+            <td>
                 <BtnStatus
                     data-for={`btn-status-${delivery.id}`}
                     data-tip
                     onClick={handleClickChange}
-                    status={delivery.status}
+                    status={
+                        delivery.status === DELIVERY_STATUS.DELIVERED
+                            ? DELIVERY_STATUS.PREPARE
+                            : DELIVERY_STATUS.DELIVERED
+                    }
+                    showLabel={false}
+                    clazz="mr-2"
                 />
                 <ReactTooltip
                     id={`btn-status-${delivery.id}`}
@@ -49,8 +61,6 @@ const Iteam = ({ delivery, toggleSelect, selected, changeStatus, deleteOne }) =>
                         </>
                     )}
                 />
-            </td>
-            <td>
                 <Link className="btn btn-warning mr-2 btn-sm" to={paths.delivery.update + '/' + delivery.id}>
                     <i className="far fa-edit"></i>
                 </Link>

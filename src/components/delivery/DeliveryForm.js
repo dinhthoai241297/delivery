@@ -37,7 +37,6 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
     }
 
     useEffect(() => {
-        console.log(props)
         handleAfterSubmit(props.submitSucceeded)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props])

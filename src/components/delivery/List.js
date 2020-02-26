@@ -63,7 +63,6 @@ const List = ({ history, location }) => {
     }
 
     const submitChangeStatus = (list, newStatus) => {
-        console.debug(newStatus)
         if (newStatus === DELIVERY_STATUS.PREPARE) {
             let valid = checkChangeStatusToPrepare(list)
             if (!valid) {
@@ -184,7 +183,7 @@ const List = ({ history, location }) => {
                         >
                             <option value={0}>All</option>
                             <option value={DELIVERY_STATUS.PREPARE}>Prepare</option>
-                            <option value={DELIVERY_STATUS.DELIVERED}>Delivery</option>
+                            <option value={DELIVERY_STATUS.DELIVERED}>Delivered</option>
                         </select>
                     </StyledFilter>
                     <div className="col-12 col-lg-6 order-lg-first">
@@ -278,10 +277,6 @@ const StyledTable = styled(Table)`
 
     button {
         white-space: nowrap;
-    }
-
-    .btn-status {
-        min-width: 100px;
     }
 
     .spec {
