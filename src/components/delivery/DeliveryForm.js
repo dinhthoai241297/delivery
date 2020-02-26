@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import InputText from 'components/form/InputText'
-import { required, number } from 'utils/ValidationForm'
+import { required, number, positive } from 'utils/ValidationForm'
 import InputDatepicker from 'components/form/InputDatepicker'
 import InputTextarea from 'components/form/InputTextarea'
 import Select from 'components/form/Select'
@@ -65,7 +65,7 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
                         name="weight"
                         component={InputText}
                         type="number"
-                        validate={[required, number]}
+                        validate={[required, number, positive]}
                     />
                 </div>
                 <div className="col-12 col-lg-6 mb-3">
@@ -75,7 +75,7 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
                         name="price"
                         component={InputText}
                         type="number"
-                        validate={[required, number]}
+                        validate={[required, number, positive]}
                     />
                 </div>
                 <div className="col-12 col-lg-6 mb-3">
