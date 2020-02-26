@@ -111,10 +111,10 @@ const List = ({ history, location }) => {
         setFilterStatus(fs)
     }, [location.search])
 
-    const changeFilterStatus = () => {
-        let newStatus = (Number(filterStatus) + 1) % 3
+    const changeFilterStatus = e => {
+        let { value } = e.target
         setSelected([])
-        history.push(location.pathname + '?fs=' + newStatus)
+        history.push(location.pathname + '?fs=' + value)
     }
 
     return (
@@ -144,24 +144,45 @@ const List = ({ history, location }) => {
                 </div>
             </StyledFunctionHead>
             <div>
-                <StyledActionMultiRecord show={selected.length !== 0}>
-                    <input
-                        onChange={toggleSelectAll}
-                        checked={selected.length !== 0 && filter().length === selected.length}
-                        type="checkbox"
-                    />
-                    <BtnStatus
-                        onClick={() => hanleChangeStatusMulti(selected, DELIVERY_STATUS.DELIVERED)}
-                        status={DELIVERY_STATUS.DELIVERED}
-                    />
-                    <BtnStatus
-                        onClick={() => hanleChangeStatusMulti(selected, DELIVERY_STATUS.PREPARE)}
-                        status={DELIVERY_STATUS.PREPARE}
-                    />
-                    <button className="btn btn-sm btn-danger" onClick={() => setIsShowModal(true)}>
-                        <i className="fas fa-trash-alt mr-1"></i>Delete
-                    </button>
-                </StyledActionMultiRecord>
+                <div className="row pt-3 pb-3">
+                    <StyledFilter className="col-12 col-lg-6 text-right mb-2 mb-lg-0">
+                        <b>Status</b>
+                        <select
+                            value={filterStatus}
+                            onChange={changeFilterStatus}
+                            id="filter-status"
+                            className="form-control ml-2"
+                        >
+                            <option value={0}>All</option>
+                            <option value={DELIVERY_STATUS.PREPARE}>Prepare</option>
+                            <option value={DELIVERY_STATUS.DELIVERED}>Delivery</option>
+                        </select>
+                    </StyledFilter>
+                    <div className="col-12 col-lg-6 order-lg-first">
+                        <StyledActionMultiRecord show={selected.length !== 0}>
+                            <input
+                                onChange={toggleSelectAll}
+                                checked={selected.length !== 0 && filter().length === selected.length}
+                                type="checkbox"
+                            />
+                            {selected.length !== 0 && (
+                                <>
+                                    <BtnStatus
+                                        onClick={() => hanleChangeStatusMulti(selected, DELIVERY_STATUS.DELIVERED)}
+                                        status={DELIVERY_STATUS.DELIVERED}
+                                    />
+                                    <BtnStatus
+                                        onClick={() => hanleChangeStatusMulti(selected, DELIVERY_STATUS.PREPARE)}
+                                        status={DELIVERY_STATUS.PREPARE}
+                                    />
+                                    <button className="btn btn-sm btn-danger" onClick={() => setIsShowModal(true)}>
+                                        <i className="fas fa-trash-alt mr-1"></i>Delete
+                                    </button>
+                                </>
+                            )}
+                        </StyledActionMultiRecord>
+                    </div>
+                </div>
                 <StyledTable responsive>
                     <thead>
                         <tr>
@@ -171,16 +192,7 @@ const List = ({ history, location }) => {
                             <th width="10%">Weight</th>
                             <th width="10%">Price</th>
                             <th width="10%">Estimated</th>
-                            <th data-tip="Click to filter with status" className="spec" onClick={changeFilterStatus}>
-                                Status
-                                {filterStatus == DELIVERY_STATUS.PREPARE && (
-                                    <i className="far fa-clock ml-2 text-warning"></i>
-                                )}
-                                {filterStatus == DELIVERY_STATUS.DELIVERED && (
-                                    <i className="fas fa-truck ml-2 text-success"></i>
-                                )}
-                                <ReactTooltip />
-                            </th>
+                            <th className="spec">Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -193,16 +205,22 @@ const List = ({ history, location }) => {
 
 export default List
 
+const StyledFilter = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    select {
+        width: auto;
+    }
+`
+
 const StyledActionMultiRecord = styled.div`
-    padding: 0.75rem;
+    padding: 0 0.75rem;
 
     > * {
         margin-bottom: 3px;
-    }
-
-    button {
-        opacity: 0;
-        ${props => (props.show ? 'opacity: 1;' : '')}
     }
 
     > * {
@@ -240,7 +258,6 @@ const StyledTable = styled(Table)`
     .spec {
         text-align: center;
         white-space: nowrap;
-        cursor: pointer;
         position: relative;
     }
 
