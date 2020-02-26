@@ -8,24 +8,27 @@ import { DELIVERY_STATUS_UI } from 'constant/index'
 import { Badge } from 'react-bootstrap'
 import { formatNumber } from 'utils/index'
 
-const Details = ({ match }) => {
+const Details = ({
+    match: {
+        params: { id },
+    },
+}) => {
     const [delivery, setDelivery] = useState(undefined)
 
     useEffect(() => {
-        let { id } = match.params
-        let delivery = getOne(id)
+        let delivery = getOne(Number(id))
         if (delivery) {
             setDelivery(delivery)
         } else {
             setDelivery(null)
         }
-    }, [])
+    }, [id])
 
     if (delivery === null) {
         return (
             <div className="p-4">
                 <div className="text-center">
-                    <img className="mb-3" width="30%" src={notFound} />
+                    <img className="mb-3" width="30%" src={notFound} alt="Not found" />
                     <h5>Delivery not found</h5>
                 </div>
             </div>

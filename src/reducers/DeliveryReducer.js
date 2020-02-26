@@ -17,7 +17,7 @@ const DeliveryReducer = (state = initialState, action) => {
         }
         case types.UPDATE_DELIVERY: {
             let tmp = [...state]
-            let index = tmp.findIndex(el => el.id == action.payload.id)
+            let index = tmp.findIndex(el => el.id === action.payload.id)
             if (index !== -1) {
                 tmp[index] = action.payload
             }

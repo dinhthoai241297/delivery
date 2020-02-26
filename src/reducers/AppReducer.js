@@ -1,5 +1,3 @@
-import * as types from 'actions/ActionTypes'
-
 const initialState = {}
 
 const AppReducer = (state = initialState, action) => {

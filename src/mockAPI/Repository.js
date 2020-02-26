@@ -1,5 +1,5 @@
-const STORE_NAME = 'mock-data'
 const data = JSON.parse(localStorage.getItem('mock-data')) || { list: [] }
+console.log(data)
 
 const saveToLocalStore = () => {
     localStorage.setItem('mock-data', JSON.stringify(data))
@@ -7,12 +7,12 @@ const saveToLocalStore = () => {
 
 export default {
     findOne: id => {
-        let rs = data.list.find(el => el.id == id)
-        return !rs || rs.status == -1 ? undefined : rs
+        let rs = data.list.find(el => el.id === id)
+        return !rs || rs.status === -1 ? undefined : rs
     },
 
     listDelivery: filter => {
-        return data.list.filter(el => el.status != -1)
+        return data.list.filter(el => el.status !== -1)
     },
 
     deleteDelivery: list => {
@@ -27,7 +27,7 @@ export default {
 
     saveDelivery: payload => {
         if (payload.id) {
-            let index = data.list.findIndex(el => el.id == payload.id)
+            let index = data.list.findIndex(el => el.id === payload.id)
             if (index !== -1) {
                 data.list[index] = payload
             } else {

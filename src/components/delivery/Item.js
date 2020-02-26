@@ -24,7 +24,7 @@ const Iteam = ({ delivery, toggleSelect, selected, changeStatus, deleteOne }) =>
     }
 
     return (
-        <StyledTr delivered={delivery.status == DELIVERY_STATUS.DELIVERED} selected={selected}>
+        <StyledTr delivered={delivery.status === DELIVERY_STATUS.DELIVERED} selected={selected}>
             <td>
                 <input type="checkbox" onChange={toggle} checked={selected} />
             </td>
@@ -45,7 +45,7 @@ const Iteam = ({ delivery, toggleSelect, selected, changeStatus, deleteOne }) =>
                     getContent={() => (
                         <>
                             Click to change status to{' '}
-                            <b>{delivery.status == DELIVERY_STATUS.DELIVERED ? 'Prepare' : 'Delivered'}</b>
+                            <b>{delivery.status === DELIVERY_STATUS.DELIVERED ? 'Prepare' : 'Delivered'}</b>
                         </>
                     )}
                 />

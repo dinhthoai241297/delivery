@@ -14,15 +14,19 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
     const history = useHistory()
 
     useEffect(() => {
-        props.initialize({
-            ...delivery,
-        })
+        const initForm = () => {
+            props.initialize({
+                ...delivery,
+            })
+        }
+        initForm()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useEffect(() => {
-        if (props.submitSucceeded) {
+    const handleAfterSubmit = submitSucceeded => {
+        if (submitSucceeded) {
             if (!delivery) {
-                reset()
+                reset('delivery')
             }
             if (isLeaveAfterSuccess) {
                 history.push(paths.delivery.list)
@@ -30,6 +34,12 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
         } else {
             setIsLeaveAfterSuccess(false)
         }
+    }
+
+    useEffect(() => {
+        console.log(props)
+        handleAfterSubmit(props.submitSucceeded)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props])
 
     const submitAndLeave = () => {
@@ -69,7 +79,6 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
                 </div>
                 <div className="col-12 col-lg-6 mb-3">
                     <Field
-                        validate={required}
                         label="Price ($)"
                         name="price"
                         component={InputText}

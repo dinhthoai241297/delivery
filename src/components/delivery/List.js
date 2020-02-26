@@ -10,7 +10,6 @@ import BtnStatus from 'components/elements/BtnStatus'
 import { DELIVERY_STATUS } from 'constant'
 import qs from 'query-string'
 import ModalConfirm from 'components/elements/ModalConfirm'
-import ReactTooltip from 'react-tooltip'
 import { fromToday } from 'utils/ValidationForm'
 import { toast } from 'react-toastify'
 
@@ -23,15 +22,20 @@ const List = ({ history, location }) => {
     const [confirmDelete, setConfirmDelete] = useState()
     const [isShowModal, setIsShowModal] = useState(false)
 
+    const fetchList = () => {
+        dispatch(getList())
+    }
+
     useEffect(() => {
         if (deliveryList.length === 0) {
-            dispatch(getList())
+            fetchList()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const toggleSelect = id => {
         let tmp = [...selected]
-        let index = tmp.findIndex(el => el == id)
+        let index = tmp.findIndex(el => el === id)
         if (index !== -1) {
             tmp.splice(index, 1)
         } else {
@@ -41,7 +45,7 @@ const List = ({ history, location }) => {
     }
 
     const filter = () => {
-        let resultStatus = deliveryList.filter(el => filterStatus == 0 || el.status == filterStatus)
+        let resultStatus = deliveryList.filter(el => filterStatus === 0 || el.status === filterStatus)
         return resultStatus.filter(el => {
             let tmp = Object.values(el).toString()
             // search in all field
@@ -59,7 +63,8 @@ const List = ({ history, location }) => {
     }
 
     const submitChangeStatus = (list, newStatus) => {
-        if (newStatus == DELIVERY_STATUS.PREPARE) {
+        console.debug(newStatus)
+        if (newStatus === DELIVERY_STATUS.PREPARE) {
             let valid = checkChangeStatusToPrepare(list)
             if (!valid) {
                 toast.warn('Deliver date invalid for change status to prepare', {
@@ -132,7 +137,7 @@ const List = ({ history, location }) => {
         if (!status.includes(fs + '')) {
             fs = 0
         }
-        setFilterStatus(fs)
+        setFilterStatus(Number(fs))
     }, [location.search])
 
     const changeFilterStatus = e => {

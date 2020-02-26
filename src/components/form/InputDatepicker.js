@@ -4,7 +4,6 @@ import { formatDate } from 'utils/index'
 import styled from 'styled-components'
 
 const InputDatepicker = ({ input, label, meta: { touched, error } }) => {
-    console.debug(error, touched)
     return (
         <div>
             <label htmlFor={input.name}>{label}</label>

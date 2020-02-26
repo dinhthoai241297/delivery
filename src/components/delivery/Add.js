@@ -16,11 +16,12 @@ const Add = ({ isUpdate, history, match }) => {
         let func
         if (isUpdate) {
             func = updateDelivery
+            values.status = Number(values.status)
         } else {
             func = addDelivery
             values.status = DELIVERY_STATUS.PREPARE
         }
-        if (values.status == DELIVERY_STATUS.PREPARE) {
+        if (values.status === DELIVERY_STATUS.PREPARE) {
             let mes = fromToday(values.deliveryDate)
             if (mes) {
                 throw new SubmissionError({
@@ -37,13 +38,14 @@ const Add = ({ isUpdate, history, match }) => {
     useEffect(() => {
         if (isUpdate) {
             let { id } = match.params
-            let delivery = getOne(id)
+            let delivery = getOne(Number(id))
             if (delivery) {
                 setDelivery(delivery)
             } else {
                 history.push(paths.delivery.list)
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
