@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import paths from 'routes/paths'
 import { DELIVERY_STATUS } from 'constant'
+import { SubmissionError } from 'redux-form'
+import { fromToday } from 'utils/ValidationForm'
 
 const Add = ({ isUpdate, history, match }) => {
     const [delivery, setDelivery] = useState()
@@ -17,6 +19,14 @@ const Add = ({ isUpdate, history, match }) => {
         } else {
             func = addDelivery
             values.status = DELIVERY_STATUS.PREPARE
+        }
+        if (values.status == DELIVERY_STATUS.PREPARE) {
+            let mes = fromToday(values.deliveryDate)
+            if (mes) {
+                throw new SubmissionError({
+                    deliveryDate: mes,
+                })
+            }
         }
         dispatch(func(values))
         toast.success(`${isUpdate ? 'Update' : 'Add'} delivery success`, {
