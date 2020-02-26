@@ -109,16 +109,16 @@ let DeliveryForm = ({ delivery, pristine, submitting, handleSubmit, reset, ...pr
                         disabled={pristine || submitting}
                         onClick={reset}
                         type="button"
-                        className="btn btn-warning mr-3"
+                        className="btn btn-warning mb-1"
                     >
-                        <i className="far fa-file mr-2"></i>Clear form
+                        <i className="far fa-file mr-2"></i>Clear Form
                     </button>
                 )}
-                <button type="submit" className="btn btn-secondary mr-3">
-                    <i className="fas fa-save mr-2"></i>Save and {delivery ? 'Edit' : 'Add'}
+                <button type="submit" className="btn btn-secondary mb-1 ml-3">
+                    <i className="fas fa-save mr-2"></i>Save and {delivery ? 'Continue Edit' : 'Add Another'}
                 </button>
-                <button onClick={submitAndLeave} type="button" className="btn btn-primary">
-                    <i className="fas fa-save mr-2"></i>Save
+                <button onClick={submitAndLeave} type="button" className="btn btn-primary mb-1 ml-3">
+                    <i className="fas fa-save mr-2"></i>Save and Leave
                 </button>
             </div>
         </form>
